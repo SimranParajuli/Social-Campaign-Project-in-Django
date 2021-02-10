@@ -1,0 +1,71 @@
+{% extends "webapp/base.html" %}
+{% load static %}
+<html>
+<head>
+  <title>Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  {% block page_content %}
+  <div>
+  <div>
+  <a href="/campaign/" class="btn btn-info" role="button">Add Campaign</a>
+  <br><br><br><br><br>
+
+
+  <div class="container">
+    {% for x in campaign %}
+    <div class="jumbotron" style="background-image:url(/static/webapp/5.jpg)">
+      <div class="row">
+    <div class="col-xs-6" id="div1">
+      <h2>{{ x.CampaignName }}</h2>
+      <p>{{ x.Date }}</p>
+      <p>No.of Volunteers: <span id="thisone">0</span></p>
+    </div>
+
+    <div class="col-xs-6" id="div2">
+    <p>{{ x.Description }}</p>
+    <a href="#" class="btn btn-info"  onclick="addone()" type="'button" data-toggle="modal" data-target="#myModal">Volunteer</a>
+    <a href="/donate/" class="btn btn-info" role="button">Donate</a>
+    </div>
+  </div>
+    </div>
+
+
+    <div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Congratulation</h4>
+      </div>
+      <div class="modal-body">
+        <p>You are now volunteering in {{ x.CampaignName }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+  {% endfor %}
+
+
+  <script type="text/javascript">
+    function addone(){
+    var foo= document.getElementById('thisone').innerHTML;
+    foo++;
+    document.getElementById('thisone').innerHTML=foo;
+    }
+  </script>
+  {% endblock %}
+</body>
+</html>
